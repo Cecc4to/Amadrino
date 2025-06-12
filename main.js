@@ -75,6 +75,7 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
   carregarAnotacoes();
 };
 
+
 async function carregarAnotacoes() {
   const container = document.getElementById("anotacoes");
   container.innerHTML = "";
@@ -83,16 +84,46 @@ async function carregarAnotacoes() {
 
   const q = query(collection(db, "anotacoes"), orderBy("data", "desc"));
   const snapshot = await getDocs(q);
+
+  const grupos = {};
+
   snapshot.forEach((doc) => {
     const anotacao = doc.data();
-    const div = document.createElement("div");
-    div.className = "anotacao";
-    div.innerHTML = `<strong>${anotacao.data}</strong><p>${anotacao.descricao}</p>`;
-    container.appendChild(div);
+    let data = anotacao.data;
+    if (data && data.seconds) {
+      data = new Date(data.seconds * 1000);
+    } else {
+      data = new Date(data);
+    }
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+    const dia = String(data.getDate()).padStart(2, "0");
+    const chave = `${ano}-${mes}-${dia}`;
+
+    if (!grupos[chave]) grupos[chave] = [];
+    grupos[chave].push(anotacao);
+
     contarPalavras(anotacao.descricao);
     registrarRestaurantes(anotacao.descricao);
   });
+
+  for (const chave of Object.keys(grupos).sort().reverse()) {
+    const [ano, mes, dia] = chave.split("-");
+    const divDia = document.createElement("div");
+    divDia.className = "dia-bloco";
+    divDia.innerHTML = `<h3>${dia}/${mes}/${ano}</h3>`;
+    grupos[chave].forEach((anotacao) => {
+      const div = document.createElement("div");
+      div.className = "anotacao";
+      div.innerHTML = `<p>${anotacao.descricao}</p>`;
+      divDia.appendChild(div);
+    });
+    container.appendChild(divDia);
+  }
+
   atualizarTabela();
+}
+    
 }
 
 function contarPalavras(texto) {
