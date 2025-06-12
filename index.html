@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="main.js" defer></script>
   </head>
-  <body>
-    <div id="app">
+  <body style="background-color: #121212; color: white; font-family: sans-serif;">
+    <div id="app" style="max-width: 800px; margin: auto; padding: 1rem;">
       <h1>📔 Reino Amadrino 💖</h1>
       <button id="login-btn">Entrar com Google</button>
       <div id="conteudo" style="display: none">
@@ -39,16 +39,14 @@
           </div>
         </form>
 
-        
-    <div id="linha-do-tempo">
-      <h2>🕒 Linha do Tempo</h2>
-      <div id="anotacoes"></div>
-    </div>
-    
+        <div id="linha-do-tempo" style="margin-top: 2rem;">
+          <h2>🕒 Linha do Tempo</h2>
+          <div id="anotacoes"></div>
+        </div>
 
         <div id="contadores">
           <h2>📊 Contador de Palavras</h2>
-          <table id="tabela-contador"></table>
+          <table id="tabela-contador" border="1" style="width: 100%; color: white;"></table>
         </div>
       </div>
     </div>
