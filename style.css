@@ -1,0 +1,22 @@
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: sans-serif;
+  padding: 1rem;
+}
+textarea, input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+#anotacoes img {
+  max-width: 100px;
+  margin-right: 1rem;
+}

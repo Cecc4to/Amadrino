@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minha Vida</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="main.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Minha Vida com Amor 💖</h1>
+    <button id="login-btn">Entrar com Google</button>
+    <div id="conteudo" style="display:none;">
+      <div id="ano-navegacao"></div>
+      <form id="form-anotacao">
+        <input type="date" id="data" required />
+        <textarea id="descricao" placeholder="Descreva o momento..."></textarea>
+        <input type="file" id="imagens" multiple accept="image/*" />
+        <button type="submit">Salvar Anotação</button>
+      </form>
+      <div id="anotacoes"></div>
+      <div id="contadores">
+        <h2>Contador de Palavras</h2>
+        <table id="tabela-contador"></table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
