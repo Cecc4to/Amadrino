@@ -42,6 +42,12 @@ document.getElementById("login-btn").onclick = () => {
       document.getElementById("login-btn").style.display = "none";
       document.getElementById("conteudo").style.display = "block";
       carregarAnotacoes();
+
+      // Habilita verificação em tempo real ao digitar
+      document.getElementById("descricao").addEventListener("input", () => {
+        const texto = document.getElementById("descricao").value;
+        verificarRestauranteRepetido(texto);
+      });
     })
     .catch((error) => {
       console.error("Erro ao fazer login:", error);
@@ -52,9 +58,6 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
   e.preventDefault();
   const data = document.getElementById("data").value;
   const descricao = document.getElementById("descricao").value;
-
-  // Verificar restaurante repetido
-  verificarRestauranteRepetido(descricao);
 
   // Atualizar contadores
   contarPalavras(descricao);
