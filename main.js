@@ -64,8 +64,8 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
   atualizarTabela();
 
   await addDoc(collection(db, "anotacoes"), {
-    data,
-    descricao,
+  data: new Date(data),
+  descricao,
     criadoEm: new Date(),
   });
 
