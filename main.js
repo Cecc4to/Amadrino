@@ -140,3 +140,16 @@ function verificarRestauranteRepetido(texto) {
     }
   }
 }
+
+
+// Adiciona mais campos de imagem e descrição
+document.getElementById("add-imagem").onclick = () => {
+  const container = document.getElementById("imagem-container");
+  const bloco = document.createElement("div");
+  bloco.className = "imagem-bloco";
+  bloco.innerHTML = `
+    <input type="file" accept="image/*" class="imagem" />
+    <input type="text" placeholder="Descrição da imagem" class="descricao-imagem" />
+  `;
+  container.appendChild(bloco);
+};
