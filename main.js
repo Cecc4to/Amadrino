@@ -124,8 +124,6 @@ async function carregarAnotacoes() {
   atualizarTabela();
 }
     
-}
-
 function contarPalavras(texto) {
   const palavras = texto.toLowerCase().split(/[\s,.!?]+/);
   for (let palavra of palavras) {
