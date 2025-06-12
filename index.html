@@ -14,19 +14,25 @@
       <div id="conteudo" style="display: none">
         <form id="form-anotacao">
           <input type="date" id="data" required />
+
           <textarea
             id="descricao"
             placeholder="Descreva o momento..."
             required
           ></textarea>
+
+          <!-- ✅ Mensagem discreta logo abaixo da caixa de texto -->
+          <p
+            id="mensagem-restaurante"
+            style="color: #ffa500; font-style: italic; margin-top: -10px; margin-bottom: 10px;"
+          ></p>
+
           <input type="file" id="imagens" multiple accept="image/*" />
           <button type="submit">Registrar</button>
         </form>
-        <p
-          id="mensagem-restaurante"
-          style="color: #ffa500; font-style: italic"
-        ></p>
+
         <div id="anotacoes"></div>
+
         <div id="contadores">
           <h2>📊 Contador de Palavras</h2>
           <table id="tabela-contador"></table>
