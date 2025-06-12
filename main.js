@@ -197,7 +197,8 @@ document.getElementById("add-imagem").onclick = () => {
   container.appendChild(bloco);
 };
 
-function exibirAnotacaoNaLinhaDoTempo(anotacao, targetDia) {
+
+function exibirAnotacaoNaLinhaDoTempo(anotacao) {
   const container = document.getElementById("anotacoes");
 
   const data = new Date(anotacao.data);
@@ -205,6 +206,37 @@ function exibirAnotacaoNaLinhaDoTempo(anotacao, targetDia) {
   const mes = String(data.getMonth() + 1).padStart(2, "0");
   const dia = String(data.getDate()).padStart(2, "0");
   const chave = `${ano}-${mes}-${dia}`;
+  const idDia = `dia-${chave}`;
+
+  let divDia = document.getElementById(idDia);
+  if (!divDia) {
+    divDia = document.createElement("div");
+    divDia.id = idDia;
+    divDia.className = "dia-bloco";
+    container.prepend(divDia);
+  }
+
+  const div = document.createElement("div");
+  div.className = "anotacao";
+  div.innerHTML = `<p><strong>${dia}/${mes}/${ano}</strong> - ${anotacao.descricao}</p>`;
+
+  if (anotacao.imagens && anotacao.imagens.length) {
+    anotacao.imagens.forEach((imgObj) => {
+      const img = document.createElement("img");
+      img.src = imgObj.src;
+      img.style = "width: 100%; margin-top: 10px;";
+      div.appendChild(img);
+
+      const desc = document.createElement("p");
+      desc.textContent = imgObj.descricao;
+      desc.style = "font-style: italic; font-size: 0.9em;";
+      div.appendChild(desc);
+    });
+  }
+
+  divDia.appendChild(div);
+}
+-${dia}`;
   const idDia = `dia-${chave}`;
 
   let divDia = targetDia || document.getElementById(idDia);
