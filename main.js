@@ -1,3 +1,4 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
   getAuth,
@@ -43,7 +44,6 @@ document.getElementById("login-btn").onclick = () => {
       document.getElementById("conteudo").style.display = "block";
       carregarAnotacoes();
 
-      // Habilita verificação em tempo real ao digitar
       document.getElementById("descricao").addEventListener("input", () => {
         const texto = document.getElementById("descricao").value;
         verificarRestauranteRepetido(texto);
@@ -59,7 +59,6 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
   const data = document.getElementById("data").value;
   const descricao = document.getElementById("descricao").value;
 
-  // Atualizar contadores
   contarPalavras(descricao);
   atualizarTabela();
 
@@ -71,7 +70,7 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
 
   alert("Anotação salva!");
   document.getElementById("form-anotacao").reset();
-  document.getElementById("mensagem-restaurante").textContent = ""; // limpa mensagem
+  document.getElementById("mensagem-restaurante").textContent = "";
   carregarAnotacoes();
 };
 
