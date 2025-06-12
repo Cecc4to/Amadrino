@@ -21,7 +21,15 @@
             required
           ></textarea>
 
-          <input type="file" id="imagens" multiple accept="image/*" />
+          <div id="imagem-container">
+            <div class="imagem-bloco">
+              <input type="file" accept="image/*" class="imagem" />
+              <input type="text" placeholder="Descrição da imagem" class="descricao-imagem" />
+            </div>
+          </div>
+
+          <button type="button" id="add-imagem">+ Adicionar Imagem</button>
+
           <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
             <button type="submit">Registrar</button>
             <p
