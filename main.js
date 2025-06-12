@@ -111,19 +111,6 @@ function atualizarTabela() {
 }
 
 function verificarRestauranteRepetido(texto) {
-  const regex = /restaurante\s+([\\wÀ-ÿ]+)/gi;
-  let match;
-  while ((match = regex.exec(texto)) !== null) {
-    const nome = match[1].toLowerCase().trim();
-    if (restaurantesRegistrados[nome]) {
-      alert(
-        `Você já mencionou o restaurante "${nome}" ${restaurantesRegistrados[nome]}x antes!`
-      );
-    }
-  }
-}
-
-function verificarRestauranteRepetido(texto) {
   const regex = /restaurante\s+([\wãõéíçêâôàáéú]+)/gi;
   let match;
   while ((match = regex.exec(texto)) !== null) {
