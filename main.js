@@ -110,15 +110,15 @@ function atualizarTabela() {
   }
 }
 
-function registrarRestaurantes(texto) {
-  const regex = /restaurante\s+([\wãõéíçêâôàáéú]+)/gi;
+function verificarRestauranteRepetido(texto) {
+  const regex = /restaurante\s+([\\wÀ-ÿ]+)/gi;
   let match;
   while ((match = regex.exec(texto)) !== null) {
-    const nome = match[1].toLowerCase();
-    if (!restaurantesRegistrados[nome]) {
-      restaurantesRegistrados[nome] = 1;
-    } else {
-      restaurantesRegistrados[nome]++;
+    const nome = match[1].toLowerCase().trim();
+    if (restaurantesRegistrados[nome]) {
+      alert(
+        `Você já mencionou o restaurante "${nome}" ${restaurantesRegistrados[nome]}x antes!`
+      );
     }
   }
 }
