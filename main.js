@@ -63,9 +63,32 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
   contarPalavras(descricao);
   atualizarTabela();
 
-  await addDoc(collection(db, "anotacoes"), {
-  data: new Date(data),
-  descricao,
+  
+  const imagens = [];
+  const imagemInputs = document.querySelectorAll(".imagem-bloco");
+  for (const bloco of imagemInputs) {
+    const fileInput = bloco.querySelector(".imagem");
+    const descInput = bloco.querySelector(".descricao-imagem");
+    if (fileInput.files[0]) {
+      const reader = new FileReader();
+      const base64 = await new Promise((resolve) => {
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(fileInput.files[0]);
+      });
+      imagens.push({ src: base64, descricao: descInput.value });
+    }
+  }
+
+  const anotacao = {
+    data: new Date(data),
+    descricao,
+    imagens,
+    criadoEm: new Date()
+  };
+
+  await addDoc(collection(db, "anotacoes"), anotacao);
+  exibirAnotacaoNaLinhaDoTempo(anotacao);
+
     criadoEm: new Date(),
   });
 
@@ -219,3 +242,44 @@ carregarAnotacoes = async function () {
     }
   });
 };
+
+
+function exibirAnotacaoNaLinhaDoTempo(anotacao) {
+  const container = document.getElementById("anotacoes");
+
+  const data = new Date(anotacao.data);
+  const ano = data.getFullYear();
+  const mes = String(data.getMonth() + 1).padStart(2, "0");
+  const dia = String(data.getDate()).padStart(2, "0");
+  const chave = `${ano}-${mes}-${dia}`;
+  const idDia = `dia-${chave}`;
+
+  let divDia = document.getElementById(idDia);
+  if (!divDia) {
+    divDia = document.createElement("div");
+    divDia.id = idDia;
+    divDia.className = "dia-bloco";
+    divDia.innerHTML = `<h3>${dia}/${mes}/${ano}</h3>`;
+    container.prepend(divDia);
+  }
+
+  const div = document.createElement("div");
+  div.className = "anotacao";
+  div.innerHTML = `<p>${anotacao.descricao}</p>`;
+
+  if (anotacao.imagens && anotacao.imagens.length) {
+    anotacao.imagens.forEach((imgObj) => {
+      const img = document.createElement("img");
+      img.src = imgObj.src;
+      img.style = "width: 100%; margin-top: 10px;";
+      div.appendChild(img);
+
+      const desc = document.createElement("p");
+      desc.textContent = imgObj.descricao;
+      desc.style = "font-style: italic; font-size: 0.9em;";
+      div.appendChild(desc);
+    });
+  }
+
+  divDia.appendChild(div);
+}
