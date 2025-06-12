@@ -71,7 +71,7 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
 
   alert("Anotação salva!");
   document.getElementById("form-anotacao").reset();
-  document.getElementById("mensagem-restaurante").textContent = "";
+  document.getElementById("mensagem-restaurante").style.display = "none";
   carregarAnotacoes();
 };
 
@@ -129,14 +129,14 @@ function registrarRestaurantes(texto) {
 
 function verificarRestauranteRepetido(texto) {
   const mensagem = document.getElementById("mensagem-restaurante");
-  mensagem.textContent = "";
+  mensagem.style.display = "none";
 
   const regex = /restaurante\s+([\wãõéíçêâôàáéú]+)/gi;
   let match;
   while ((match = regex.exec(texto)) !== null) {
     const nome = match[1].toLowerCase();
     if (restaurantesRegistrados[nome]) {
-      mensagem.textContent = `Você já foi ao restaurante "${nome}" ${restaurantesRegistrados[nome]}x antes.`;
+      mensagem.style.display = "inline";
     }
   }
 }
