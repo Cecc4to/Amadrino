@@ -44,7 +44,6 @@ document.getElementById("login-btn").onclick = () => {
       document.getElementById("conteudo").style.display = "block";
       carregarAnotacoes();
 
-      // Verificação ao digitar
       document.getElementById("descricao").addEventListener("input", () => {
         const texto = document.getElementById("descricao").value;
         verificarRestauranteRepetido(texto);
@@ -63,7 +62,6 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
   contarPalavras(descricao);
   atualizarTabela();
 
-  
   const imagens = [];
   const imagemInputs = document.querySelectorAll(".imagem-bloco");
   for (const bloco of imagemInputs) {
@@ -83,21 +81,16 @@ document.getElementById("form-anotacao").onsubmit = async (e) => {
     data: new Date(data),
     descricao,
     imagens,
-    criadoEm: new Date()
+    criadoEm: new Date(),
   };
 
   await addDoc(collection(db, "anotacoes"), anotacao);
   exibirAnotacaoNaLinhaDoTempo(anotacao);
 
-    criadoEm: new Date(),
-  });
-
   alert("Anotação salva!");
   document.getElementById("form-anotacao").reset();
   document.getElementById("mensagem-restaurante").style.display = "none";
-  carregarAnotacoes();
 };
-
 
 async function carregarAnotacoes() {
   const container = document.getElementById("anotacoes");
@@ -118,6 +111,8 @@ async function carregarAnotacoes() {
     } else {
       data = new Date(data);
     }
+    anotacao.data = data;
+
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, "0");
     const dia = String(data.getDate()).padStart(2, "0");
@@ -133,20 +128,18 @@ async function carregarAnotacoes() {
   for (const chave of Object.keys(grupos).sort().reverse()) {
     const [ano, mes, dia] = chave.split("-");
     const divDia = document.createElement("div");
+    divDia.id = `dia-${chave}`;
     divDia.className = "dia-bloco";
     divDia.innerHTML = `<h3>${dia}/${mes}/${ano}</h3>`;
     grupos[chave].forEach((anotacao) => {
-      const div = document.createElement("div");
-      div.className = "anotacao";
-      div.innerHTML = `<p>${anotacao.descricao}</p>`;
-      divDia.appendChild(div);
+      exibirAnotacaoNaLinhaDoTempo(anotacao, divDia);
     });
     container.appendChild(divDia);
   }
 
   atualizarTabela();
 }
-    
+
 function contarPalavras(texto) {
   const palavras = texto.toLowerCase().split(/[\s,.!?]+/);
   for (let palavra of palavras) {
@@ -193,8 +186,6 @@ function verificarRestauranteRepetido(texto) {
   }
 }
 
-
-// Adiciona mais campos de imagem e descrição
 document.getElementById("add-imagem").onclick = () => {
   const container = document.getElementById("imagem-container");
   const bloco = document.createElement("div");
@@ -206,45 +197,7 @@ document.getElementById("add-imagem").onclick = () => {
   container.appendChild(bloco);
 };
 
-
-// Adiciona campos de imagem e descrição
-document.getElementById("add-imagem").onclick = () => {
-  const container = document.getElementById("imagem-container");
-  const bloco = document.createElement("div");
-  bloco.className = "imagem-bloco";
-  bloco.innerHTML = `
-    <input type="file" accept="image/*" class="imagem" />
-    <input type="text" placeholder="Descrição da imagem" class="descricao-imagem" />
-  `;
-  container.appendChild(bloco);
-};
-
-// Estende carregarAnotacoes para incluir imagens (simulação local)
-const originalCarregar = carregarAnotacoes;
-carregarAnotacoes = async function () {
-  await originalCarregar();
-
-  const blocos = document.querySelectorAll(".anotacao");
-
-  // Adiciona imagens simuladas às anotações mais recentes (demonstração local)
-  blocos.forEach((bloco, i) => {
-    if (i === 0) {
-      const img = document.createElement("img");
-      img.src = "https://via.placeholder.com/300x200?text=Foto+1";
-      img.alt = "Descrição da imagem";
-      img.style = "width: 100%; margin-top: 10px;";
-      bloco.appendChild(img);
-
-      const desc = document.createElement("p");
-      desc.textContent = "Descrição da imagem 1";
-      desc.style = "font-style: italic; font-size: 0.9em;";
-      bloco.appendChild(desc);
-    }
-  });
-};
-
-
-function exibirAnotacaoNaLinhaDoTempo(anotacao) {
+function exibirAnotacaoNaLinhaDoTempo(anotacao, targetDia) {
   const container = document.getElementById("anotacoes");
 
   const data = new Date(anotacao.data);
@@ -254,7 +207,7 @@ function exibirAnotacaoNaLinhaDoTempo(anotacao) {
   const chave = `${ano}-${mes}-${dia}`;
   const idDia = `dia-${chave}`;
 
-  let divDia = document.getElementById(idDia);
+  let divDia = targetDia || document.getElementById(idDia);
   if (!divDia) {
     divDia = document.createElement("div");
     divDia.id = idDia;
