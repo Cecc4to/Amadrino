@@ -182,3 +182,40 @@ document.getElementById("add-imagem").onclick = () => {
   `;
   container.appendChild(bloco);
 };
+
+
+// Adiciona campos de imagem e descrição
+document.getElementById("add-imagem").onclick = () => {
+  const container = document.getElementById("imagem-container");
+  const bloco = document.createElement("div");
+  bloco.className = "imagem-bloco";
+  bloco.innerHTML = `
+    <input type="file" accept="image/*" class="imagem" />
+    <input type="text" placeholder="Descrição da imagem" class="descricao-imagem" />
+  `;
+  container.appendChild(bloco);
+};
+
+// Estende carregarAnotacoes para incluir imagens (simulação local)
+const originalCarregar = carregarAnotacoes;
+carregarAnotacoes = async function () {
+  await originalCarregar();
+
+  const blocos = document.querySelectorAll(".anotacao");
+
+  // Adiciona imagens simuladas às anotações mais recentes (demonstração local)
+  blocos.forEach((bloco, i) => {
+    if (i === 0) {
+      const img = document.createElement("img");
+      img.src = "https://via.placeholder.com/300x200?text=Foto+1";
+      img.alt = "Descrição da imagem";
+      img.style = "width: 100%; margin-top: 10px;";
+      bloco.appendChild(img);
+
+      const desc = document.createElement("p");
+      desc.textContent = "Descrição da imagem 1";
+      desc.style = "font-style: italic; font-size: 0.9em;";
+      bloco.appendChild(desc);
+    }
+  });
+};
