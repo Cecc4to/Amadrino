@@ -28,13 +28,79 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-document.getElementById("login-btn").onclick = () => {
-  signInWithPopup(auth, provider).then((result) => {
-    document.getElementById("login-btn").style.display = "none";
-    document.getElementById("conteudo").style.display = "block";
-    carregarAnotacoes();
-  });
+let contadores = {
+  restaurante: 0,
+  viagem: 0,
+  cinema: 0,
 };
+
+document.getElementById("login-btn").onclick = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      document.getElementById("login-btn").style.display = "none";
+      document.getElementById("conteudo").style.display = "block";
+      carregarAnotacoes();
+    })
+    .catch((error) => {
+      console.error("Erro ao fazer login:", error);
+    });
+};
+
+document.getElementById("form-anotacao").onsubmit = async (e) => {
+  e.preventDefault();
+  const data = document.getElementById("data").value;
+  const descricao = document.getElementById("descricao").value;
+
+  // Atualizar contadores
+  contarPalavras(descricao);
+  atualizarTabela();
+
+  await addDoc(collection(db, "anotacoes"), {
+    data,
+    descricao,
+    criadoEm: new Date(),
+  });
+
+  alert("Anotação salva!");
+  document.getElementById("form-anotacao").reset();
+  carregarAnotacoes();
+};
+
+async function carregarAnotacoes() {
+  const container = document.getElementById("anotacoes");
+  container.innerHTML = "";
+  const q = query(collection(db, "anotacoes"), orderBy("data", "desc"));
+  const snapshot = await getDocs(q);
+  snapshot.forEach((doc) => {
+    const anotacao = doc.data();
+    const div = document.createElement("div");
+    div.className = "anotacao";
+    div.innerHTML = `<strong>${anotacao.data}</strong><p>${anotacao.descricao}</p>`;
+    container.appendChild(div);
+    contarPalavras(anotacao.descricao);
+  });
+  atualizarTabela();
+}
+
+function contarPalavras(texto) {
+  const palavras = texto.toLowerCase().split(/[\s,.!?]+/);
+  for (let palavra of palavras) {
+    if (contadores.hasOwnProperty(palavra)) {
+      contadores[palavra]++;
+    }
+  }
+}
+
+function atualizarTabela() {
+  const tabela = document.getElementById("tabela-contador");
+  tabela.innerHTML = "<tr><th>Palavra</th><th>Contagem</th></tr>";
+  for (const palavra in contadores) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${palavra}</td><td>${contadores[palavra]}</td>`;
+    tabela.appendChild(tr);
+  }
+}
+
 
 document.getElementById("form-anotacao").onsubmit = async (e) => {
   e.preventDefault();
