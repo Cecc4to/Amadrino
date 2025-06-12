@@ -44,6 +44,7 @@ document.getElementById("login-btn").onclick = () => {
       document.getElementById("conteudo").style.display = "block";
       carregarAnotacoes();
 
+      // Verificação ao digitar
       document.getElementById("descricao").addEventListener("input", () => {
         const texto = document.getElementById("descricao").value;
         verificarRestauranteRepetido(texto);
@@ -134,7 +135,9 @@ function verificarRestauranteRepetido(texto) {
   let match;
   while ((match = regex.exec(texto)) !== null) {
     const nome = match[1].toLowerCase();
-    if (restaurantesRegistrados[nome]) {
+    if (!restaurantesRegistrados[nome]) {
+      restaurantesRegistrados[nome] = 0;
+    } else {
       mensagem.textContent = `Você já foi ao restaurante "${nome}" ${restaurantesRegistrados[nome]}x antes.`;
     }
   }
