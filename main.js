@@ -17,7 +17,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDn2Wl9jXQymaFNRCWR09abcYf_Fb6dKN4",
   authDomain: "amadrino-f3091.firebaseapp.com",
   projectId: "amadrino-f3091",
-  storageBucket: "amadrino-f3091.appspot.com", // Corrigido! (estava errado)
+  storageBucket: "amadrino-f3091.appspot.com",
   messagingSenderId: "382818880105",
   appId: "1:382818880105:web:a1aec0cf8c6fd7c85070f8",
   measurementId: "G-07VPHCR7J2",
@@ -99,35 +99,4 @@ function atualizarTabela() {
     tr.innerHTML = `<td>${palavra}</td><td>${contadores[palavra]}</td>`;
     tabela.appendChild(tr);
   }
-}
-
-
-document.getElementById("form-anotacao").onsubmit = async (e) => {
-  e.preventDefault();
-  const data = document.getElementById("data").value;
-  const descricao = document.getElementById("descricao").value;
-
-  await addDoc(collection(db, "anotacoes"), {
-    data,
-    descricao,
-    criadoEm: new Date(),
-  });
-
-  alert("Anotação salva!");
-  document.getElementById("form-anotacao").reset();
-  carregarAnotacoes();
-};
-
-async function carregarAnotacoes() {
-  const container = document.getElementById("anotacoes");
-  container.innerHTML = "";
-  const q = query(collection(db, "anotacoes"), orderBy("data", "desc"));
-  const snapshot = await getDocs(q);
-  snapshot.forEach((doc) => {
-    const anotacao = doc.data();
-    const div = document.createElement("div");
-    div.className = "anotacao";
-    div.innerHTML = `<strong>${anotacao.data}</strong><p>${anotacao.descricao}</p>`;
-    container.appendChild(div);
-  });
 }
