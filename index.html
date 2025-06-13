@@ -1,54 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amadrino</title>
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" src="main.js" defer></script>
-  </head>
-  <body style="background-color: #121212; color: white; font-family: sans-serif;">
-    <div id="app" style="max-width: 800px; margin: auto; padding: 1rem;">
-      <h1>📔 Reino Amadrino 💖</h1>
-      <button id="login-btn">Entrar com Google</button>
-      <div id="conteudo" style="display: none">
-        <form id="form-anotacao">
-          <input type="date" id="data" required />
-          <textarea
-            id="descricao"
-            placeholder="Descreva o momento..."
-            required
-          ></textarea>
-
-          <div id="imagem-container">
-            <div class="imagem-bloco">
-              <input type="file" accept="image/*" class="imagem" />
-              <input type="text" placeholder="Descrição da imagem" class="descricao-imagem" />
-            </div>
-          </div>
-
-          <button type="button" id="add-imagem">+ Adicionar Imagem</button>
-
-          <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-            <button type="submit">Registrar</button>
-            <p
-              id="mensagem-restaurante"
-              style="color: red; font-size: 0.9em; font-style: italic; margin: 0; display: none;"
-            >Você já foi nesse restaurante antes.</p>
-          </div>
-        </form>
-
-        <div id="linha-do-tempo" style="margin-top: 2rem;">
-          <h2>🕒 Linha do Tempo</h2>
-          <div id="anotacoes"></div>
-        </div>
-
-        <div id="contadores">
-          <h2>📊 Contador de Palavras</h2>
-          <table id="tabela-contador" border="1" style="width: 100%; color: white;"></table>
-        </div>
-      </div>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amadrino</title>
+  <script type="module" src="main.js" defer></script>
+</head>
+<body>
+  <h1>📔 Reino Amadrino 💖</h1>
+  <button id="login-btn">Entrar com Google</button>
+  <div id="conteudo" style="display: none;">
+    <form id="form-anotacao">
+      <input type="date" id="data" required />
+      <textarea id="descricao" placeholder="Descreva o momento..." required></textarea>
+      <button type="submit">Registrar</button>
+    </form>
+    <div id="anotacoes"></div>
+  </div>
+</body>
 </html>
