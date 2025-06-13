@@ -197,7 +197,7 @@ document.getElementById("add-imagem").onclick = () => {
   container.appendChild(bloco);
 };
 
-function exibirAnotacaoNaLinhaDoTempo(anotacao, targetDia) {
+function exibirAnotacaoNaLinhaDoTempo(anotacao, targetDia = null) {
   const container = document.getElementById("anotacoes");
 
   const data = new Date(anotacao.data);
@@ -218,7 +218,7 @@ function exibirAnotacaoNaLinhaDoTempo(anotacao, targetDia) {
 
   const div = document.createElement("div");
   div.className = "anotacao";
-  div.innerHTML = `<p>${anotacao.descricao}</p>`;
+  div.innerHTML = `<p><strong>${dia}/${mes}/${ano}</strong> - ${anotacao.descricao}</p>`;
 
   if (anotacao.imagens && anotacao.imagens.length) {
     anotacao.imagens.forEach((imgObj) => {
