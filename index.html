@@ -1,21 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Amadrino</title>
+  <link rel="stylesheet" href="style.css"/>
   <script type="module" src="main.js" defer></script>
 </head>
 <body>
-  <h1>📔 Reino Amadrino 💖</h1>
-  <button id="login-btn">Entrar com Google</button>
-  <div id="conteudo" style="display: none;">
-    <form id="form-anotacao">
-      <input type="date" id="data" required />
-      <textarea id="descricao" placeholder="Descreva o momento..." required></textarea>
-      <button type="submit">Registrar</button>
-    </form>
-    <div id="anotacoes"></div>
+  <div id="app">
+    <h1>📔 Reino Amadrino 💖</h1>
+    <button id="login-btn">Entrar com Google</button>
+    <div id="conteudo" style="display: none">
+      <form id="form-anotacao">
+        <input type="date" id="data" required />
+        <textarea id="descricao" placeholder="Descreva o momento..." required></textarea>
+        <div id="imagem-container"></div>
+        <button type="button" id="add-imagem">Adicionar Imagem</button>
+        <button type="submit">Registrar</button>
+        <span id="mensagem-restaurante" style="color: red; margin-left: 10px;"></span>
+      </form>
+      <div id="contadores">
+        <h2>📊 Contador de Palavras</h2>
+        <table id="tabela-contador"></table>
+      </div>
+      <div id="anotacoes"></div>
+    </div>
   </div>
 </body>
 </html>
