@@ -1,24 +1,30 @@
-
 body {
-  font-family: Arial, sans-serif;
-  background-color: #fefefe;
-  color: #333;
-  padding: 20px;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: sans-serif;
+  padding: 2rem;
 }
-#app {
-  max-width: 800px;
-  margin: auto;
+textarea, input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #1e1e1e;
+  color: white;
+  border: 1px solid #444;
+}
+button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+#anotacoes img {
+  max-width: 100px;
+  margin: 0.5rem;
 }
 .anotacao {
-  background: #fff6e6;
-  border: 1px solid #ffd591;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 8px;
-}
-.dia-bloco {
-  margin-top: 20px;
-}
-h3 {
-  color: #ff7b00;
+  border: 1px solid #444;
+  margin-top: 1rem;
+  padding: 1rem;
 }
