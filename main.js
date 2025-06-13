@@ -213,13 +213,12 @@ function exibirAnotacaoNaLinhaDoTempo(anotacao) {
     divDia = document.createElement("div");
     divDia.id = idDia;
     divDia.className = "dia-bloco";
-    divDia.innerHTML = `<h3>${dia}/${mes}/${ano}</h3>`;
     container.prepend(divDia);
   }
 
   const div = document.createElement("div");
   div.className = "anotacao";
-  div.innerHTML = `<p>${anotacao.descricao}</p>`;
+  div.innerHTML = `<p><strong>${dia}/${mes}/${ano}</strong> - ${anotacao.descricao}</p>`;
 
   if (anotacao.imagens && anotacao.imagens.length) {
     anotacao.imagens.forEach((imgObj) => {
